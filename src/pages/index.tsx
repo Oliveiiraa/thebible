@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Roboto } from "next/font/google"
-import { BiBook } from "react-icons/bi"
 import Button from "@/components/ui/button"
 import Input from "@/components/ui/input"
 import HelpModal from "@/components/modals/help"
@@ -12,46 +11,58 @@ import TheBibleLogo from "@/components/logo/thebible"
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
 export default function Home() {
-  const [showWelcome, setShowWelcome] = useState(true)
-  const [showModalHelp, setShowModalHelp] = useState(true)
-  const [showModalAnswer, setShowModalAnswer] = useState(false)
-  const [answer, setAnswer] = useState("")
+  const [state, setState] = useState({
+    showWelcome: true,
+    showModalHelp: true,
+    showModalAnswer: false,
+    answer: "",
+  })
   const { messages, handleSubmit, input, handleInputChange } = useChat({
     api: "/api/answer",
   })
 
   useEffect(() => {
     const displayTime = 3000
-
     const timer = setTimeout(() => {
-      setShowWelcome(false)
+      setState(prevState => ({ ...prevState, showWelcome: false }))
     }, displayTime)
-
     return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {
     if (messages.length > 0) {
-      setShowModalAnswer(true)
-      setShowModalHelp(false)
-
-      const lastMessage = messages[messages.length - 1]
-      if (lastMessage.role === "user") {
-        setAnswer("Estou pensando...")
-      } else {
-        setAnswer(lastMessage.content)
-      }
+      setState(prevState => ({
+        ...prevState,
+        showModalAnswer: true,
+        showModalHelp: false,
+        answer:
+          messages[messages.length - 1].role === "user" ? "Estou pensando..." : messages[messages.length - 1].content,
+      }))
     }
   }, [messages])
 
+  useEffect(() => {
+    const preventScroll = (e: TouchEvent) => {
+      e.preventDefault()
+    }
+    document.body.addEventListener("touchmove", preventScroll, { passive: false })
+
+    return () => {
+      document.body.removeEventListener("touchmove", preventScroll)
+    }
+  }, [])
+
   return (
     <>
-      {showWelcome && <WelcomeScreen />}
-      <div className={`flex h-screen flex-col items-center justify-between p-8 sm:p-24 ${roboto.className}`}>
-        <header className="flex flex-row justify-center items-center">
+      {state.showWelcome && <WelcomeScreen />}
+      <div
+        className={`flex h-screen flex-col items-center justify-around md:justify-between p-8 sm:p-24 ${roboto.className}`}
+        style={{ overflowY: "auto" }}
+      >
+        <header className="fixed justify-center items-center top-20">
           <TheBibleLogo color="white" />
         </header>
-        <main className="flex flex-col items-center justify-center w-full">
+        <main className="flex flex-col items-center justify-center w-full flex-grow">
           <div className="flex w-full max-w-4xl items-center mb-6">
             <form className="relative flex-grow mr-4" onSubmit={handleSubmit}>
               <Input
@@ -70,10 +81,10 @@ export default function Home() {
               </Button>
             </form>
           </div>
-          {showModalHelp && <HelpModal />}
-          {showModalAnswer && <AnswerModal answer={answer} />}
+          {state.showModalHelp && <HelpModal />}
+          {state.showModalAnswer && <AnswerModal answer={state.answer} />}
         </main>
-        <footer className="flex items-center justify-center w-full">
+        <footer className="fixed bottom-10">
           <p>
             © {new Date().getFullYear()} -{" "}
             <a href="https://www.linkedin.com/in/gabriel-h-oliveira" target="_blank" rel="noopener noreferrer">

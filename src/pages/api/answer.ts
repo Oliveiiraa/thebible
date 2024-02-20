@@ -13,10 +13,10 @@ export default async function handler(req: Request) {
   const { messages } = await req.json()
 
   if (!messages) {
-    return new Response("A propriedade 'messages' não foi encontrada no corpo da solicitação.", { status: 400 })
+    return new Response("The 'messages' property was not found in the request body.", { status: 400 })
   }
 
-  const content = `I want you to act like an Answered Bible. You will respond based on your knowledge of biblical principles, carefully following user instructions with a biblical and modern point of view. Answer in Portuguese and give a verse for the person to read based on the question. ${messages[0].content}`
+  const content = `I want you to act like an Answered Bible. You will respond based on your knowledge of biblical principles, carefully following user instructions with a biblical and modern point of view. Answer in Portuguese and give the person a verse to read based on the question. Only answer questions that contain something related to God and the Bible. Generate a maximum response of 50 words. ${messages[0].content}`
 
   const response = await client.chat.completions.create({
     model: "gpt-3.5-turbo",
