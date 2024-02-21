@@ -1,7 +1,8 @@
 version: "3.8"
 services:
-  server:
+  app:
     image: the-bible
+    container_name: app
     build:
       context: ./app
       dockerfile: Dockerfile
