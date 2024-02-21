@@ -1,4 +1,4 @@
-import { BiBook } from "react-icons/bi"
+import { FaBible } from "react-icons/fa"
 
 interface TheBibleLogoProps {
   color: "white" | "black"
@@ -11,7 +11,7 @@ export default function TheBibleLogo({ color }: TheBibleLogoProps) {
     <div className="flex">
       <div className="flex items-center justify-center w-full">
         <h1 className="text-4xl sm:text-6xl font-bold" style={{ color: textColor }}>
-          <BiBook className="text-4xl sm:text-6xl inline-block mr-2" />
+          <FaBible className="text-4xl sm:text-6xl inline-block mr-2" />
           The Bible
         </h1>
       </div>

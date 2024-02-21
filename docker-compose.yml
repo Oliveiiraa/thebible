@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  server:
+    image: the-bible
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - OPENAI_API_KEY=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
