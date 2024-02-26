@@ -1,9 +1,23 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FiCopy } from "react-icons/fi"
 import { Tooltip } from "react-tooltip"
 
 export default function AnswerModal({ answer }: { answer: string }) {
   const [copied, setCopied] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024)
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(answer)
@@ -20,7 +34,7 @@ export default function AnswerModal({ answer }: { answer: string }) {
 
     <div
       className="flex justify-center border-b border-neutral-800 bg-zinc-800/60 from-inherit static w-auto rounded-xl borderp-4 p-4"
-      style={{ maxHeight: "15em", overflowY: "auto", maxWidth: "50vw" }}
+      style={{ maxHeight: "15em", overflowY: "auto", maxWidth: isDesktop ? "50vw" : "none" }}
     >
       <div>
         <div className="flex items-center">
