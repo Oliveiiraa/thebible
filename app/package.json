@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@sentry/nextjs": "^7.102.1",
     "ai": "^2.2.35",
     "eventsource-parser": "^1.1.2",
     "framer-motion": "^11.0.5",
@@ -18,6 +19,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-toastify": "^10.0.4",
     "react-tooltip": "^5.26.3"
   },
   "devDependencies": {

@@ -14,21 +14,22 @@ services:
       - /app/.next
     environment:
       - OPENAI_API_KEY=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
+      - SENTRY_DSN=https://8454a6f540dc16660b90a74e4a3adc68@us.sentry.io/4506814822547456
     networks:
       - app-network
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - app-network
-    depends_on:
-      - app
+    nginx:
+      image: nginx:latest
+      container_name: nginx
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      networks:
+        - app-network
+      depends_on:
+        - app
 
 networks:
   app-network:

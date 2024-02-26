@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { Roboto } from "next/font/google"
 import Button from "@/components/ui/button"
 import Input from "@/components/ui/input"
@@ -8,37 +8,42 @@ import { useChat } from "ai/react"
 import WelcomeScreen from "@/components/screens/welcome"
 import TheBibleLogo from "@/components/logo/thebible"
 import Head from "next/head"
+import { toast } from "react-toastify"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
 export default function Home() {
-  const [state, setState] = useState({
-    showWelcome: true,
-    showModalHelp: true,
-    showModalAnswer: false,
-    answer: "",
-  })
+  const [showWelcome, setShowWelcome] = useState(true)
+  const [showModalHelp, setShowModalHelp] = useState(true)
+  const [showModalAnswer, setShowModalAnswer] = useState(false)
+  const [answer, setAnswer] = useState("")
+
+  const onError = useCallback(() => {
+    toast.error(
+      "Ocorreu um erro ao processar a sua pergunta e fomos notificados. Por favor, tente novamente mais tarde."
+    )
+  }, [])
+
   const { messages, handleSubmit, input, handleInputChange } = useChat({
     api: "/api/answer",
+    onError,
   })
 
   useEffect(() => {
     const displayTime = 3000
     const timer = setTimeout(() => {
-      setState(prevState => ({ ...prevState, showWelcome: false }))
+      setShowWelcome(false)
     }, displayTime)
     return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {
     if (messages.length > 0) {
-      setState(prevState => ({
-        ...prevState,
-        showModalAnswer: true,
-        showModalHelp: false,
-        answer:
-          messages[messages.length - 1].role === "user" ? "Estou pensando..." : messages[messages.length - 1].content,
-      }))
+      setShowModalAnswer(true)
+      setShowModalHelp(false)
+      setAnswer(
+        messages[messages.length - 1].role === "user" ? "Estou pensando..." : messages[messages.length - 1].content
+      )
     }
   }, [messages])
 
@@ -58,7 +63,7 @@ export default function Home() {
       <Head>
         <title>The Bible | Sua IA para ajuda biblica</title>
       </Head>
-      {state.showWelcome && <WelcomeScreen />}
+      {showWelcome && <WelcomeScreen />}
       <div
         className={`flex h-screen flex-col items-center justify-around md:justify-between p-8 sm:p-24 ${roboto.className}`}
         style={{ overflowY: "auto" }}
@@ -85,8 +90,8 @@ export default function Home() {
               </Button>
             </form>
           </div>
-          {state.showModalHelp && <HelpModal />}
-          {state.showModalAnswer && <AnswerModal answer={state.answer} />}
+          {showModalHelp && <HelpModal />}
+          {showModalAnswer && <AnswerModal answer={answer} />}
         </main>
         <footer className="fixed bottom-10">
           <p>
