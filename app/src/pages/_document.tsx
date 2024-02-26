@@ -3,7 +3,9 @@ import { Html, Head, Main, NextScript } from "next/document"
 export default function Document() {
   return (
     <Html lang="pt-br">
-      <Head />
+      <Head title="The Bible | Sua IA para ajuda biblica">
+        <link rel="icon" href="/favicon.svg" />
+      </Head>
       <body>
         <Main />
         <NextScript />

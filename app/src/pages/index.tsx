@@ -7,6 +7,7 @@ import AnswerModal from "@/components/modals/answer"
 import { useChat } from "ai/react"
 import WelcomeScreen from "@/components/screens/welcome"
 import TheBibleLogo from "@/components/logo/thebible"
+import Head from "next/head"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
@@ -54,6 +55,9 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>The Bible | Sua IA para ajuda biblica</title>
+      </Head>
       {state.showWelcome && <WelcomeScreen />}
       <div
         className={`flex h-screen flex-col items-center justify-around md:justify-between p-8 sm:p-24 ${roboto.className}`}
@@ -68,7 +72,7 @@ export default function Home() {
               <Input
                 className="w-full py-2 pl-4 pr-12 rounded-full border border-gray-300"
                 style={{ fontSize: "1rem", color: "var(--text-color)" }}
-                placeholder="Faça sua pergunta..."
+                placeholder="Como posso te ajudar hoje?"
                 value={input}
                 onChange={handleInputChange}
               />
