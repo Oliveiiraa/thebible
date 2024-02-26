@@ -14,7 +14,8 @@ services:
       - /app/.next
     environment:
       - OPENAI_API_KEY=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
-      - SENTRY_DSN=https://8454a6f540dc16660b90a74e4a3adc68@us.sentry.io/4506814822547456
+      - SENTRY_AUTH_TOKEN=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
+      - NEXT_PUBLIC_SENTRY_DSN=https://8454a6f540dc16660b90a74e4a3adc68@us.sentry.io/4506814822547456
     networks:
       - app-network
 
