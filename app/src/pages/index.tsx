@@ -70,14 +70,14 @@ export default function Home() {
           <div className="flex w-full max-w-4xl items-center mb-6">
             <form className="relative flex-grow mr-4" onSubmit={handleSubmit}>
               <Input
-                className="w-full py-2 pl-4 pr-12 rounded-full border border-gray-300"
-                style={{ fontSize: "1rem", color: "var(--text-color)" }}
+                className="w-full py-2 pl-4 pr-12 rounded-full text-white border border-neutral-800 bg-zinc-800/60 shadow-md"
+                style={{ _hover: { opacity: 0.5 } }}
                 placeholder="Como posso te ajudar hoje?"
                 value={input}
                 onChange={handleInputChange}
               />
               <Button
-                className="absolute inset-y-0 right-0 px-4 text-white rounded-full rounded-l-none border border-gray-300"
+                className="absolute inset-y-0 right-0 px-4 text-white rounded-full rounded-l-none border-r border-t border-b border-neutral-800"
                 style={{ backgroundColor: "rgb(var(--button-color))", _hover: { opacity: 0.5 } }}
                 type="submit"
               >
