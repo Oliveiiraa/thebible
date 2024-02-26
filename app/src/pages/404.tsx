@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function notFound() {
   return (
     <main
@@ -15,7 +17,7 @@ export default function notFound() {
         Página não existe
       </div>
       <button className="mt-5">
-        <a
+        <Link
           className="relative inline-block text-sm font-medium text-white group active:text-purple-800 focus:outline-none focus:ring"
           href="/"
         >
@@ -27,7 +29,7 @@ export default function notFound() {
           >
             Voltar para home
           </span>
-        </a>
+        </Link>
       </button>
     </main>
   )
