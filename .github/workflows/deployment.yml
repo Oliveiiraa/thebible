@@ -32,3 +32,13 @@ jobs:
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull Docker Image
+        run: docker image pull ${{ secrets.DOCKER_USERNAME }}/thebible:latest
+
+      - name: Run Docker Container
+        run: docker compose down && docker compose up -d
