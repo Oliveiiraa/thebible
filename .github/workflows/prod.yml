@@ -5,9 +5,9 @@ on:
     branches: [main]
 
 env:
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-  SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+  OPENAI_API_KEY: "${{ secrets.OPENAI_API_KEY }}"
+  SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+  SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
           context: "{{defaultContext}}:app"
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/thebible:latest
-          secrets: |
+          build-args: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_DSN=${{ secrets.SENTRY_DSN }}
