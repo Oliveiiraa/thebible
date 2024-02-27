@@ -1,22 +1,10 @@
 version: "3.8"
 services:
   app:
-    image: the-bible
+    image: oliveiiraa/thebible:latest
     container_name: app
-    build:
-      context: ./app
-      dockerfile: Dockerfile
-      args:
-        - SENTRY_AUTH_TOKEN=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
-        - SENTRY_DSN=https://8454a6f540dc16660b90a74e4a3adc68@us.sentry.io/4506814822547456
     ports:
       - "3000:3000"
-    volumes:
-      - ./app:/app
-      - /app/node_modules
-      - /app/.next
-    environment:
-      - OPENAI_API_KEY=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
     networks:
       - app-network
 
