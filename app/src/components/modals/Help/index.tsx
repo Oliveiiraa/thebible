@@ -18,6 +18,12 @@ const HelpModal = () => {
               <q>Estou passando por problemas de ansiedade</q>
             </b>
           </p>
+          <p>
+            Exemplo:{" "}
+            <b>
+              <q>Quem foi Jó?</q>
+            </b>
+          </p>
         </div>
       </div>
     </div>

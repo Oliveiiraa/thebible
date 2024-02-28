@@ -77,7 +77,7 @@ export default function Home() {
           <div className="flex w-full max-w-4xl items-center mb-6">
             <form className="relative flex-grow mr-4" onSubmit={handleSubmit}>
               <Input
-                className="w-full py-2 pl-4 pr-12 rounded-full text-white border border-neutral-800 bg-zinc-800/60 shadow-md"
+                className="w-full py-2 pl-4 pr-12 rounded-full text-white border border-neutral-800 outline-none bg-zinc-800/60 shadow-lg"
                 style={{ _hover: { opacity: 0.5 } }}
                 placeholder="Como posso te ajudar hoje?"
                 value={input}
