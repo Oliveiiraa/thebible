@@ -4,7 +4,7 @@ interface TheBibleLogoProps {
   color: "white" | "black"
 }
 
-export default function TheBibleLogo({ color }: TheBibleLogoProps) {
+const TheBibleLogo = ({ color }: TheBibleLogoProps) => {
   const textColor = color === "white" ? "var(--white)" : "rgb(var(--button-color))"
 
   return (
@@ -26,3 +26,5 @@ export default function TheBibleLogo({ color }: TheBibleLogoProps) {
     </div>
   )
 }
+
+export default TheBibleLogo

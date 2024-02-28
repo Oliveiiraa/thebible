@@ -1,6 +1,6 @@
 import { FaLightbulb } from "react-icons/fa"
 
-export default function HelpModal() {
+const HelpModal = () => {
   return (
     <div className="flex justify-center border-b border-neutral-800 bg-zinc-800/60 from-inherit static w-auto rounded-xl borderp-4 p-4">
       <div className="w-auto">
@@ -23,3 +23,5 @@ export default function HelpModal() {
     </div>
   )
 }
+
+export default HelpModal

@@ -10,7 +10,7 @@ export const runtime = "edge"
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
-export default async function handler(req: Request) {
+const handler = async (req: Request) => {
   const { messages } = await req.json()
 
   if (!messages) {
@@ -48,3 +48,5 @@ export default async function handler(req: Request) {
     return new Response("An error occurred while processing the request.", { status: 500 })
   }
 }
+
+export default handler

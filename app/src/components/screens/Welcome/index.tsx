@@ -1,4 +1,4 @@
-import TheBibleLogo from "@/components/logo/thebible"
+import TheBibleLogo from "@/components/logos/Thebible"
 import { motion } from "framer-motion"
 
 const WelcomeScreen = () => {
