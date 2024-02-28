@@ -10,6 +10,7 @@ import TheBibleLogo from "@/components/logos/Thebible"
 import Head from "next/head"
 import { toast } from "react-toastify"
 import InitialModal from "@/components/modals/Initial"
+import InfoModal from "@/components/modals/Info"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
@@ -17,6 +18,7 @@ export default function Home() {
   const [showWelcome, setShowWelcome] = useState(true)
   const [showModalHelp, setShowModalHelp] = useState(true)
   const [showModalAnswer, setShowModalAnswer] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   const [answer, setAnswer] = useState("")
 
   const onError = useCallback(() => {
@@ -50,14 +52,27 @@ export default function Home() {
 
   useEffect(() => {
     const preventScroll = (e: TouchEvent) => {
-      e.preventDefault()
+      e.preventDefault();
+    };
+  
+    const enableScroll = () => {
+      document.body.removeEventListener("touchmove", preventScroll);
+    };
+  
+    const disableScroll = () => {
+      document.body.addEventListener("touchmove", preventScroll, { passive: false });
+    };
+  
+    if (modalOpen) {
+      enableScroll();
+    } else {
+      disableScroll();
     }
-    document.body.addEventListener("touchmove", preventScroll, { passive: false })
-
+  
     return () => {
-      document.body.removeEventListener("touchmove", preventScroll)
-    }
-  }, [])
+      document.body.removeEventListener("touchmove", preventScroll);
+    };
+  }, [modalOpen])
 
   return (
     <>
@@ -65,7 +80,8 @@ export default function Home() {
         <title>The Bible | Sua IA para ajuda biblica</title>
       </Head>
       {showWelcome && <WelcomeScreen />}
-      <InitialModal />
+      <InfoModal setModalOpen={setModalOpen} />
+      <InitialModal setModalOpen={setModalOpen} />
       <div
         className={`flex h-screen flex-col items-center justify-around md:justify-between p-8 sm:p-24 ${roboto.className}`}
         style={{ overflowY: "auto" }}
