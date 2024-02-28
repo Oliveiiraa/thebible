@@ -9,6 +9,7 @@ import WelcomeScreen from "@/components/screens/Welcome"
 import TheBibleLogo from "@/components/logos/Thebible"
 import Head from "next/head"
 import { toast } from "react-toastify"
+import InitialModal from "@/components/modals/Initial"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
@@ -64,6 +65,7 @@ export default function Home() {
         <title>The Bible | Sua IA para ajuda biblica</title>
       </Head>
       {showWelcome && <WelcomeScreen />}
+      <InitialModal />
       <div
         className={`flex h-screen flex-col items-center justify-around md:justify-between p-8 sm:p-24 ${roboto.className}`}
         style={{ overflowY: "auto" }}
