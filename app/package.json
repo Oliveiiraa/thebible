@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@next/third-parties": "^14.1.0",
     "@sentry/nextjs": "^7.102.1",
     "ai": "^2.2.35",
     "eventsource-parser": "^1.1.2",

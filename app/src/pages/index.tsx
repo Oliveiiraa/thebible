@@ -11,6 +11,7 @@ import Head from "next/head"
 import { toast } from "react-toastify"
 import InitialModal from "@/components/modals/Initial"
 import InfoModal from "@/components/modals/Info"
+import { GoogleAnalytics } from "@next/third-parties/google"
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] })
 
@@ -52,26 +53,26 @@ export default function Home() {
 
   useEffect(() => {
     const preventScroll = (e: TouchEvent) => {
-      e.preventDefault();
-    };
-  
-    const enableScroll = () => {
-      document.body.removeEventListener("touchmove", preventScroll);
-    };
-  
-    const disableScroll = () => {
-      document.body.addEventListener("touchmove", preventScroll, { passive: false });
-    };
-  
-    if (modalOpen) {
-      enableScroll();
-    } else {
-      disableScroll();
+      e.preventDefault()
     }
-  
+
+    const enableScroll = () => {
+      document.body.removeEventListener("touchmove", preventScroll)
+    }
+
+    const disableScroll = () => {
+      document.body.addEventListener("touchmove", preventScroll, { passive: false })
+    }
+
+    if (modalOpen) {
+      enableScroll()
+    } else {
+      disableScroll()
+    }
+
     return () => {
-      document.body.removeEventListener("touchmove", preventScroll);
-    };
+      document.body.removeEventListener("touchmove", preventScroll)
+    }
   }, [modalOpen])
 
   return (
@@ -93,7 +94,7 @@ export default function Home() {
           <div className="flex w-full max-w-4xl items-center mb-6">
             <form className="relative flex-grow mr-4" onSubmit={handleSubmit}>
               <Input
-                className="w-full py-2 pl-4 pr-12 rounded-full text-white border border-neutral-800 outline-none bg-zinc-800/60 shadow-lg"
+                className="w-full py-2 pl-4 pr-28 rounded-full text-white border border-neutral-800 outline-none bg-zinc-800/60 shadow-lg"
                 style={{ _hover: { opacity: 0.5 } }}
                 placeholder="Como posso te ajudar hoje?"
                 value={input}
@@ -120,6 +121,7 @@ export default function Home() {
           </p>
         </footer>
       </div>
+      <GoogleAnalytics gaId="G-95MM7EZED8" />
     </>
   )
 }
